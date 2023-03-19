@@ -12,7 +12,7 @@ var upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'
 
 passwordOptions = () => {
   let length = parseInt(
-    alert('How many charcters do you want your password to be?')
+    prompt('How many charcters do you want your password to be?')
   );
 
   if (Number.isNaN(length)) {
@@ -34,6 +34,12 @@ passwordOptions = () => {
   var hasLowercase = confirm('This password has lower case.');
 
   var hasUppercase = confirm('This password has upper case.');
+
+  if (hasCharacters === false && hasNumbers === flase && hasLowercase === False && hasUppercase === false) {
+    alert('The password must have at least one of these');
+  } else {
+    alert('fortnite');
+  }
 }
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
