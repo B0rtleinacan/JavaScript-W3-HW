@@ -40,6 +40,20 @@ passwordOptions = () => {
   } else {
     alert('fortnite');
   }
+
+  var passwordOptions = {
+    hasCharacters: hasCharacters,
+    hasNumbers: hasNumbers,
+    hasLowercase: hasLowercase,
+    hasUppsercase: hasUppercase
+  }
+}
+
+randomizer = (arr) => {
+  var index = math.floor(math.random() * arr.length);
+  var element = arr[index];
+
+  return element;
 }
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
