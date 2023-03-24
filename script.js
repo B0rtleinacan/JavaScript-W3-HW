@@ -10,21 +10,25 @@ var lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
 // Array of uppder case letters for the User to use in generated password
 var upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-passwordOptions = () => {
-  let length = parseInt(
-    prompt('How many charcters do you want your password to be?')
+function getPasswordOptions() {
+  var length = parseInt(
+    prompt('How many charcters do you want your password to be?'),
+    10
   );
 
   if (Number.isNaN(length)) {
     alert('The password must have a length provided');
+    return null;
   }
 
   if (length < 8) {
     alert('The password must be 8 or more characters');
+    return null;
   }
 
   if (length > 128) {
     alert('The password must be at least or less than 128 characters');
+    return null;
   }
 
   var hasCharacters = confirm('This password has special characters.');
@@ -37,24 +41,71 @@ passwordOptions = () => {
 
   if (hasCharacters === false && hasNumbers === flase && hasLowercase === False && hasUppercase === false) {
     alert('The password must have at least one of these');
-  } else {
-    alert('fortnite');
-  }
+    return null;
+  } 
 
   var passwordOptions = {
+    length: length, 
     hasCharacters: hasCharacters,
     hasNumbers: hasNumbers,
     hasLowercase: hasLowercase,
     hasUppsercase: hasUppercase
+  };
+
+  return passwordOptions;
+}
+// Randomizer for passwords
+getRandom = (arr) => {
+  var randIndex = Math.floor(Math.random() * arr.length);
+  var randElement = arr[randIndex];
+
+  return randElement;
+}
+
+function generatePassword() {
+  var options = getPasswordOptions();
+
+  var result = [];
+
+  var possibleCharacters = [];
+
+  var guaranteedCharacters = [];
+
+  if (!options) return null;
+
+  if (options.hasCharacters) {
+    possibleCharacters = possibleCharacters.concat(characters);
+    guaranteedCharacters.push(getRandom(characters));
+  };
+
+  if (options.hasNumbers) {
+    possibleCharacters = possibleCharacters.concat(numbers);
+    guaranteedCharacters.push(getRandom(numbers));
+  };
+
+  if (options.hasLowercase) {
+    possibleCharacters = possibleCharacters.concat(lowerCase);
+    guaranteedCharacters.push(getRandom(lowerCase));
+  };
+
+  if (options.hasUppercase) {
+    possibleCharacters = possibleCharacters.concat(upperCase);
+    guaranteedCharacters.push(getRandom(upperCase));
+  };
+
+  for (var i = 0; i < options.length; i++) {
+    var possibleCharacters = getRandom(possibleCharacters);
+
+    result.push(possibleCharacters);
   }
+
+  for (var i = 0; 1 < guaranteedCharacters.length; i++) {
+    result[i] = guaranteedCharacters[i];
+  };
+
+  return result.join('');
 }
 
-randomizer = (arr) => {
-  var index = math.floor(math.random() * arr.length);
-  var element = arr[index];
-
-  return element;
-}
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
